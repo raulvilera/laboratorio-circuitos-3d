@@ -22,13 +22,13 @@ select,button{font:inherit;color:var(--text);background:#1b2435;border:1px solid
 button:hover,select:hover{border-color:rgba(56,189,248,.5)}
 .chk{display:flex;gap:6px;align-items:center;color:var(--muted);cursor:pointer;user-select:none}
 .chk input{accent-color:var(--accent)}
-#tools{position:fixed;left:12px;top:78px;display:flex;flex-direction:column;gap:4px;padding:6px;z-index:5}
+#tools{position:fixed;left:12px;top:var(--th,78px);display:flex;flex-direction:column;gap:4px;padding:6px;z-index:5}
 .tool{width:64px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;background:transparent;border:1px solid transparent;border-radius:10px;color:var(--muted);font-size:11px}
 .tool svg{width:30px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tool:hover{color:var(--text);background:rgba(255,255,255,.04)}
 .tool.on{color:var(--text);background:rgba(56,189,248,.14);border-color:rgba(56,189,248,.45)}
 .tool .k{font-size:9px;opacity:.55}
-#panel{position:fixed;right:12px;top:78px;width:290px;max-height:calc(100% - 150px);overflow:auto;padding:14px;z-index:5}
+#panel{position:fixed;right:12px;top:var(--th,78px);width:290px;max-height:calc(100% - var(--th,78px) - 72px);overflow:auto;padding:14px;z-index:5}
 #panel h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
 #panel section+section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .stat{display:flex;justify-content:space-between;padding:3px 0}
@@ -78,7 +78,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
 #shortBanner{position:fixed;left:50%;top:84px;transform:translateX(-50%);padding:10px 16px;z-index:9;display:none;font-weight:700;color:#fecaca;border-color:rgba(239,68,68,.8);animation:pulse 1s infinite}
 @keyframes pulse{50%{box-shadow:0 0 24px rgba(239,68,68,.55)}}
 #btnGuide{background:linear-gradient(135deg,#0ea5e9,#6366f1);border:none;font-weight:700;color:#fff}
-#guide{position:fixed;left:92px;top:78px;width:350px;max-height:calc(100% - 150px);overflow:auto;padding:14px;z-index:6;display:none;border-color:rgba(245,158,11,.35)}
+#guide{position:fixed;left:92px;top:var(--th,78px);width:350px;max-height:calc(100% - var(--th,78px) - 72px);overflow:auto;padding:14px;z-index:6;display:none;border-color:rgba(245,158,11,.35)}
 #guide.flash{animation:gflash .7s}
 @keyframes gflash{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}100%{box-shadow:0 0 0 14px rgba(74,222,128,0)}}
 .g-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -129,6 +129,11 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
 .lvl.big{display:inline-flex;margin-bottom:4px}
 .lvl.big button{padding:9px 16px;font-size:14px}
 #btnHist,#btnLab{border-color:rgba(245,158,11,.5)}
+#btnAulas{background:linear-gradient(135deg,#22c55e,#0ea5e9);border:none;font-weight:700;color:#04121c}
+.card.aulas{border-color:rgba(74,222,128,.45);background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(14,165,233,.08))}
+.card.aulas .n{color:#4ade80}
+.numrow{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin:-2px 0 6px}
+.numrow input{width:84px;font:inherit;font-size:13px;color:var(--text);background:#0d1420;border:1px solid var(--line);border-radius:7px;padding:3px 6px}
 .card.em{border-color:rgba(245,158,11,.35)}
 .card.em .n{color:#f59e0b}
 #history{position:fixed;inset:0;z-index:40;display:none;background:radial-gradient(1200px 600px at 20% 0%,#1a2236,#0a0e16);overflow:auto}
@@ -214,6 +219,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
   </div>
   <div class="actions">
     <div class="lvl" id="lvlSel" title="Escolha a turma"><button data-l="8">8º Ano</button><button data-l="em">2ª Série EM</button></div>
+    <button id="btnAulas" title="As 21 aulas do 4º bimestre com laboratórios interativos">📚 Aulas 8º ano</button>
     <button id="btnGuide">📘 Roteiros e ajuda</button>
     <button id="btnHist" class="em-only">📜 História das pilhas</button>
     <button id="btnLab" class="em-only">🔋 Pilhas e baterias 3D</button>
@@ -223,6 +229,14 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
       <option value="paralelo">Circuito em paralelo</option>
       <option value="misto">Circuito misto + medidores</option>
       <option value="curto">Curto-circuito (perigo!)</option>
+      <option value="fusivel">Fusível protegendo o circuito</option>
+      <optgroup label="Circuitos das aulas 15 e 16">
+        <option value="a15_1">9 V + resistor de 10 Ω</option>
+        <option value="a15_2">Dois resistores em série</option>
+        <option value="a15_5">Com amperímetro e voltímetro</option>
+        <option value="a16_par">Dois resistores em paralelo</option>
+        <option value="a16_misto">Circuito misto de resistores</option>
+      </optgroup>
     </select>
     <label class="chk"><input type="checkbox" id="optFlow" checked> Corrente</label>
     <label class="chk"><input type="checkbox" id="optElectron"> Sentido dos elétrons</label>
@@ -295,7 +309,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
     <p class="muted" id="lvlDesc" style="font-size:13px"></p>
     <h3>Como usar</h3>
     <div class="howto">
-      <div><b>1. Escolha uma ferramenta</b><br>Na barra da esquerda (ou teclas 1 a 9): fio, bateria, resistor, lâmpada, chave e medidores.</div>
+      <div><b>1. Escolha uma ferramenta</b><br>Na barra da esquerda (ou teclas 1 a 9 e 0): fio, bateria, resistor, lâmpada, chave, medidores e fusível.</div>
       <div><b>2. Clique em dois bornes</b><br>Os pinos dourados têm nomes como <b>C3</b> (letra = coluna, número = linha), escritos nas bordas da placa. O componente fica entre os dois pontos.</div>
       <div><b>3. Feche o circuito</b><br>A corrente só circula num caminho fechado, que sai de um polo da bateria e volta ao outro. As bolinhas azuis mostram a corrente.</div>
       <div><b>4. Meça e altere</b><br>Com <b>Selecionar</b>, clique num componente para ver tensão, corrente e potência e mudar seus valores. Clique numa chave para abrir ou fechar.</div>
@@ -303,6 +317,8 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
       <div><b>5. Mova a câmera</b><br>Arraste para girar. Roda do mouse (ou pinça no celular) para zoom. Botão direito arrastando para deslocar.</div>
       <div><b>6. Corrija erros</b><br>A ferramenta <b>Apagar</b> remove peças. <b>Esc</b> ou um clique com o botão direito cancela um posicionamento começado.</div>
     </div>
+    <h3>8º Ano: Energia e eletricidade (4º bimestre)</h3>
+    <div class="cards"><button class="card aulas" id="mAulas"><div class="n">📚 21 aulas · laboratórios interativos</div><div class="t">Aulas do 4º bimestre</div><div class="d">Da energia no cotidiano ao lixo eletrônico: um laboratório para cada aula (ímãs, cargas elétricas, Lei de Ohm, corrente alternada, usinas, circuitos, segurança, consumo e conta de luz), com ideias-chave e questões.</div></button></div>
     <div class="em-only">
       <h3>2ª Série: pilhas e baterias</h3>
       <div class="cards" id="emCards"></div>
@@ -347,6 +363,7 @@ const ICONS = {
   resistor: '<path d="M1 12h5l2-5 3 10 3-10 3 10 3-10 2 5h7"/>',
   lamp:     '<path d="M1 12h7M22 12h7"/><circle cx="15" cy="12" r="7"/><path d="M10 7l10 10M20 7 10 17"/>',
   switch:   '<path d="M1 14h7M22 14h7"/><circle cx="8" cy="14" r="1.5"/><circle cx="22" cy="14" r="1.5"/><path d="M9 13 21 5"/>',
+  fuse:     '<path d="M1 12h6M23 12h6"/><rect x="7" y="7" width="16" height="10" rx="3"/><path d="M8 12c2-3 3 3 5 0s3 3 5 0 3 3 4 0"/>',
   ammeter:  '<path d="M1 12h7M22 12h7"/><circle cx="15" cy="12" r="7"/><path d="M12 16l3-8 3 8M13 13.5h4"/>',
   voltmeter:'<path d="M1 12h7M22 12h7"/><circle cx="15" cy="12" r="7"/><path d="M12 8l3 8 3-8"/>',
   delete:   '<path d="M8 6h14M12 6V4h6v2M10 6l1 14h8l1-14"/>'
@@ -357,6 +374,7 @@ const TYPES = {
   resistor:  { name:'Resistor',  def:100 },
   lamp:      { name:'Lâmpada',   def:12 },
   switch:    { name:'Chave' },
+  fuse:      { name:'Fusível',   def:2 },
   ammeter:   { name:'Amperímetro' },
   voltmeter: { name:'Voltímetro' },
 };
@@ -373,8 +391,9 @@ const BKINDS = {
 };
 const TOOLS = [
   ['select','Selecionar'],['wire','Fio'],['battery','Bateria'],['resistor','Resistor'],
-  ['lamp','Lâmpada'],['switch','Chave'],['ammeter','Amperímetro'],['voltmeter','Voltímetro'],['delete','Apagar']
+  ['lamp','Lâmpada'],['switch','Chave'],['ammeter','Amperímetro'],['voltmeter','Voltímetro'],['fuse','Fusível'],['delete','Apagar']
 ];
+const keyOf = k => String((k + 1) % 10);   // 10ª ferramenta usa a tecla 0
 
 /* ================= Cena ================= */
 const scene = new THREE.Scene();
@@ -503,7 +522,7 @@ function makeTextSprite(text, { w = 256, h = 80, font = 34, color = '#dbe3ee', b
 }
 const dc = x => String(x).replace('.', ',');   // vírgula decimal (padrão brasileiro)
 const fV = v => dc((Math.abs(v) < 0.005 ? 0 : v).toFixed(2)) + ' V';
-const fI = i => { const a = Math.abs(i); if (a < 1e-6) return '0 mA'; return a < 1 ? dc((i * 1000).toFixed(a < 0.01 ? 2 : 0)) + ' mA' : dc(i.toFixed(2)) + ' A'; };
+const fI = i => { const a = Math.abs(i); if (a < 1e-6) return '0 mA'; return a < 0.9995 ? dc((i * 1000).toFixed(a < 0.01 ? 2 : 0)) + ' mA' : dc(i.toFixed(2)) + ' A'; };
 const fP = p => { const a = Math.abs(p); if (a < 1e-6) return '0 mW'; return a < 1 ? dc((p * 1000).toFixed(a < 0.01 ? 2 : 0)) + ' mW' : dc(p.toFixed(2)) + ' W'; };
 const fR = r => r >= 1000 ? dc((r / 1000).toFixed(r % 1000 ? 1 : 0)) + ' kΩ' : dc(+r.toPrecision(3)) + ' Ω';
 
@@ -528,13 +547,16 @@ function resistorBands(R){
 
 /* ================= Componentes ================= */
 let comps = [], uid = 0, selected = null;
-const opt = { flow:true, electron:false, labels:true };
+const opt = { flow:true, electron:false, labels:true, ideal:false };
+/* Modo "ideal" (como nos exercícios do livro): bateria sem resistência interna e fios sem resistência */
+const RW = () => opt.ideal ? 1e-4 : R_WIRE;
 
 function labelText(c){
   switch (c.type) {
     case 'battery': return `${dc(c.value)} V`;
     case 'resistor': return fR(c.value);
     case 'lamp': return c.broken ? 'QUEIMADA' : fR(c.value);
+    case 'fuse': return c.broken ? 'QUEIMADO' : `${dc(c.value)} A`;
     case 'switch': return c.closed ? 'Fechada' : 'Aberta';
   }
   return null;
@@ -620,6 +642,19 @@ function buildComp(c){
       hit.castShadow = hit.receiveShadow = false; hit.userData.toggle = true;
       labelY = 1.25; break;
     }
+    case 'fuse': {
+      leads(.55);
+      const y = .62;
+      P.glass = own(new THREE.MeshPhysicalMaterial({ color:0xdbeafe, roughness:.05, transparent:true, opacity:.28, depthWrite:false }));
+      const tube = rod(mid - .4, mid + .4, .2, P.glass, y); tube.castShadow = false;
+      [-.47, .47].forEach(x => rod(mid + x - .09, mid + x + .09, .215, M.metal, y));
+      P.fil = own(new THREE.MeshStandardMaterial({ color:0xb8b8b8, metalness:.8, roughness:.3, emissive:0xff6a00, emissiveIntensity:0 }));
+      P.wire = rod(mid - .4, mid + .4, .025, P.fil, y);
+      // pedacinhos do filamento rompido (aparecem quando o fusível queima)
+      P.stubs = [rod(mid - .4, mid - .2, .025, P.fil, y), rod(mid + .2, mid + .4, .025, P.fil, y)];
+      const hold = add(GEO.box, M.ceramic, mid, .3); hold.scale.set(1.2, .14, .42);
+      labelY = 1.15; break;
+    }
     case 'ammeter': case 'voltmeter': {
       leads(.7);
       const isA = c.type === 'ammeter';
@@ -678,12 +713,13 @@ function gauss(A, b, n){
 
 function resistanceOf(c){
   switch (c.type) {
-    case 'wire': case 'ammeter': return R_WIRE;
-    case 'switch': return c.closed ? R_WIRE : null;
+    case 'wire': case 'ammeter': return RW();
+    case 'switch': return c.closed ? RW() : null;
+    case 'fuse': return c.broken ? null : RW();
     case 'resistor': return c.value;
     case 'lamp': return c.broken ? null : c.value;
     case 'voltmeter': return R_VOLT;
-    case 'battery': return (BKINDS[c.kind] || BKINDS.generic).r;
+    case 'battery': return (!c.kind || c.kind === 'generic') && opt.ideal ? 1e-4 : (BKINDS[c.kind] || BKINDS.generic).r;
   }
 }
 
@@ -710,6 +746,14 @@ function solve(depth = 0){
     else { c.I = (va - vb) / c._R; c.P = c.I * c.I * c._R; }
     if (c.type === 'lamp' && !c.broken && c.P > LAMP_BURN_P) { c.broken = true; burned.push(c); }
   }
+  // O fusível age primeiro: se algum fusível passou do limite, só ele queima (e protege o resto)
+  const blown = comps.filter(c => c.type === 'fuse' && !c.broken && Math.abs(c.I) > c.value);
+  if (blown.length && depth < 5) {
+    burned.forEach(c => { c.broken = false; });
+    blown.forEach(c => { c.blownAt = Math.abs(c.I); c.broken = true; c.label && c.label.userData.draw(labelText(c), '#fca5a5'); });
+    toast(`🔥 O fusível de ${dc(blown[0].value)} A queimou e abriu o circuito: a corrente chegou a ${fI(blown[0].blownAt)}. Ele protegeu os fios e os aparelhos!`, 'bad');
+    return solve(depth + 1);
+  }
   if (burned.length && depth < 5) {
     burned.forEach(c => c.label && c.label.userData.draw(labelText(c), '#fca5a5'));
     toast(`💥 ${burned.length > 1 ? burned.length + ' lâmpadas queimaram' : 'A lâmpada queimou'}! Potência acima de ${LAMP_BURN_P} W.`, 'bad');
@@ -735,6 +779,12 @@ function applyVisuals(){
       case 'resistor': P.mat.emissiveIntensity = Math.min(1, c.P / 2) * 0.9; break;
       case 'wire': P.mat.emissiveIntensity = Math.abs(c.I) > SHORT_I ? 1.2 : 0; break;
       case 'switch': P.pivot.rotation.z = c.closed ? 0 : 0.6; break;
+      case 'fuse': {
+        P.wire.visible = !c.broken; P.stubs.forEach(s => s.visible = c.broken);
+        P.fil.emissiveIntensity = c.broken ? 0 : Math.min(1, Math.pow(Math.abs(c.I) / c.value, 2)) * 2.5;
+        P.glass.color.set(c.broken ? 0x3f3a36 : 0xdbeafe); P.glass.opacity = c.broken ? .6 : .28;
+        break;
+      }
       case 'battery': if (Math.abs(c.I) > SHORT_I) shorted = true; break;
       case 'ammeter': case 'voltmeter': drawMeter(c); break;
     }
@@ -813,6 +863,13 @@ const INFO = {
     day:'Interruptor de luz, botão liga/desliga dos aparelhos, teclas do teclado.',
     tip:'Em série com uma lâmpada, a chave controla só aquela lâmpada. Na entrada do circuito, ela controla tudo.',
     sym:'<path d="M2 20h16M46 20h16"/><circle cx="18" cy="20" r="2.5"/><circle cx="46" cy="20" r="2.5"/><path d="M20 19 44 6"/>' },
+  fuse:{
+    fn:'<b>Protege</b> o circuito: se a corrente passar do limite, o fusível <b>queima</b> e abre o circuito.',
+    how:'Dentro do tubo há um fio metálico bem fino. Quando a corrente fica alta demais (sobrecarga ou curto-circuito), esse fio esquenta, <b>derrete</b> e interrompe o caminho da corrente antes que os fios da instalação peguem fogo. Depois de queimar, precisa ser trocado. O <b>disjuntor</b> faz o mesmo papel, mas pode ser religado.',
+    unit:'Corrente máxima, em <b>ampères (A)</b>. Neste simulador você escolhe o limite (ex.: 2 A).',
+    day:'Fusíveis do carro, de aparelhos de som e de micro-ondas. Nas casas, foram substituídos pelos <b>disjuntores</b> do quadro de energia.',
+    tip:'O fusível vai sempre <b>em série</b> e no começo do circuito. Nunca troque um fusível por um fio ou por um de corrente maior: a proteção deixa de existir.',
+    sym:'<path d="M2 16h14M48 16h14"/><rect x="16" y="9" width="32" height="14" rx="3"/><path d="M16 16h32"/>' },
   ammeter:{
     fn:'<b>Mede a corrente elétrica</b> que passa por um ponto do circuito.',
     how:'Deve ser ligado <b>em série</b>, dentro do caminho, para que toda a corrente passe por ele. Sua resistência é quase zero, para não atrapalhar o circuito. O polo + deve ficar do lado de onde vem a corrente convencional.',
@@ -852,11 +909,15 @@ function renderProps(){
       ctl = `<div class="slider"><label>Tipo de fonte</label><select id="bKind" style="width:100%">${Object.entries(BKINDS).map(([k, b]) => `<option value="${k}"${k === kind ? ' selected' : ''}>${b.name}</option>`).join('')}</select></div>`
           + (kind === 'generic' ? slider : `<p class="muted" style="font-size:12px">Tensão: <b>${String(BKINDS[kind].V).replace('.', ',')} V</b> · resistência interna: <b>${String(BKINDS[kind].r).replace('.', ',')} Ω</b>. Troque para “Genérica” para ajustar a tensão.</p>`);
     } else ctl = slider;
+    if (kind === 'generic' || LEVEL !== 'em') ctl +=`<div class="numrow">Digite: <input id="slnum" type="number" min="0.5" max="24" step="0.5" value="${c.value}"> V</div>`;
+    if (kind === 'generic') ctl += `<label class="chk" style="font-size:12px;margin:6px 0"><input type="checkbox" id="bIdeal"${opt.ideal ? ' checked' : ''}> Bateria e fios ideais (sem resistência interna), como nos exercícios do livro</label>`;
   }
-  if (c.type === 'resistor') ctl = `<div class="slider"><label>Resistência <b id="slv">${fR(c.value)}</b></label><input id="sl" type="range" min="0" max="300" step="1" value="${Math.log10(c.value) * 100}"></div>`;
+  if (c.type === 'resistor') ctl = `<div class="slider"><label>Resistência <b id="slv">${fR(c.value)}</b></label><input id="sl" type="range" min="0" max="300" step="1" value="${Math.log10(c.value) * 100}"></div><div class="numrow">Digite: <input id="slnum" type="number" min="1" max="1000" step="any" value="${c.value}"> Ω</div>`;
   if (c.type === 'lamp') ctl = `<div class="slider"><label>Resistência do filamento <b id="slv">${fR(c.value)}</b></label><input id="sl" type="range" min="2" max="100" step="1" value="${c.value}"></div><p class="muted" style="font-size:12px">Brilho máximo com ${LAMP_RATED_P} W · queima acima de ${LAMP_BURN_P} W.</p>`;
+  if (c.type === 'fuse') ctl = `<div class="slider"><label>Corrente máxima <b id="slv">${dc(c.value)} A</b></label><input id="sl" type="range" min="0.5" max="10" step="0.5" value="${c.value}"></div><p class="muted" style="font-size:12px">${c.broken ? `Queimou com ${fI(c.blownAt || 0)}.` : `Queima se a corrente passar de ${dc(c.value)} A.`}</p>`;
   const btn = [];
   if (c.type === 'switch') btn.push(`<button id="bToggle">${c.closed ? 'Abrir chave' : 'Fechar chave'}</button>`);
+  if (c.type === 'fuse' && c.broken) btn.push(`<button id="bFix" class="primary">🔧 Trocar o fusível</button>`);
   if (c.type === 'battery') btn.push(LEVEL === 'em' && !BKINDS[kind].mode
     ? `<button id="bHist" class="primary">📜 Ver na história das pilhas</button>`
     : `<button id="bCell" class="primary">🔬 Ver por dentro (reações químicas)</button>`);
@@ -867,21 +928,34 @@ function renderProps(){
     <div class="fn"><b>Função:</b> ${INFO[c.type].fn}</div>${ctl}
     <div class="readings"><div><span>Tensão</span><b id="rV">—</b></div><div><span>Corrente</span><b id="rI">—</b></div><div><span>Potência</span><b id="rP">—</b></div></div>
     <p id="rOhm" class="ohm"></p><div class="btns">${btn.join('')}</div>${infoCard(c.type)}`;
-  const sl = $('#sl');
+  const sl = $('#sl'), num = $('#slnum');
+  const unitTxt = () => c.type === 'battery' ? dc(c.value) + ' V' : c.type === 'fuse' ? dc(c.value) + ' A' : fR(c.value);
+  const applyVal = () => {
+    $('#slv').textContent = unitTxt();
+    if (c.type === 'resistor') { buildComp(c); placeMarker(selMarker, c); } else if (c.label) c.label.userData.draw(labelText(c));
+    solve();
+  };
   if (sl) sl.addEventListener('input', () => {
     if (c.type === 'resistor') c.value = +Math.pow(10, sl.value / 100).toPrecision(2);
     else c.value = +sl.value;
-    $('#slv').textContent = c.type === 'battery' ? dc(c.value) + ' V' : fR(c.value);
-    if (c.type === 'resistor') buildComp(c); else if (c.label) c.label.userData.draw(labelText(c));
-    if (c.type === 'resistor') placeMarker(selMarker, c);
-    solve();
+    if (num) num.value = c.value;
+    applyVal();
   });
+  if (num) num.addEventListener('change', () => {
+    const v = parseFloat(String(num.value).replace(',', '.'));
+    if (!(v > 0)) { num.value = c.value; return; }
+    c.value = +Math.min(c.type === 'battery' ? 24 : 1000, Math.max(c.type === 'battery' ? 0.5 : 1, v)).toPrecision(4);
+    num.value = c.value;
+    if (sl) sl.value = c.type === 'resistor' ? Math.log10(c.value) * 100 : c.value;
+    applyVal();
+  });
+  $('#bIdeal')?.addEventListener('change', e => { opt.ideal = e.target.checked; solve(); toast(opt.ideal ? 'Modo ideal: bateria e fios sem resistência (valores iguais aos do livro).' : 'Modo real: a bateria tem uma pequena resistência interna.'); });
   $('#bToggle')?.addEventListener('click', () => toggleSwitch(c));
   $('#bCell')?.addEventListener('click', () => openCellView(c));
   $('#bHist')?.addEventListener('click', () => openHistory('liion'));
   $('#bKind')?.addEventListener('change', e => setBatteryKind(c, e.target.value));
   $('#bFlip')?.addEventListener('click', () => { [c.a, c.b] = [c.b, c.a]; buildComp(c); placeMarker(selMarker, c); solve(); });
-  $('#bFix')?.addEventListener('click', () => { c.broken = false; c.label?.userData.draw(labelText(c)); solve(); renderProps(); });
+  $('#bFix')?.addEventListener('click', () => { fixComp(c); });
   $('#bDel').addEventListener('click', () => { removeComp(c); solve(); });
   updateReadings();
 }
@@ -902,6 +976,7 @@ function updateReadings(){
   else if (c.type === 'ammeter') ohm.innerHTML = 'Ligado em <b>série</b>: mede a corrente que passa por ele (resistência ≈ 0).';
   else if (c.type === 'voltmeter') ohm.innerHTML = 'Ligado em <b>paralelo</b>: mede a diferença de potencial (resistência ≈ ∞).';
   else if (c.type === 'lamp') ohm.innerHTML = 'Filamento rompido: não há caminho para a corrente.';
+  else if (c.type === 'fuse') ohm.innerHTML = c.broken ? 'Fusível queimado: o fio interno derreteu e o circuito está aberto.' : `Usando ${Math.round(Math.abs(r.I) / c.value * 100)}% do limite de ${dc(c.value)} A.`;
   else ohm.innerHTML = 'Fio de cobre: resistência quase nula.';
 }
 
@@ -910,6 +985,11 @@ function setBatteryKind(c, k){
   c.label?.userData.draw(labelText(c)); solve();
   if (selected === c) renderProps();
   toast(`Fonte trocada para: ${BKINDS[k].name}`);
+}
+function fixComp(c){
+  c.broken = false; c.label?.userData.draw(labelText(c)); solve();
+  if (selected === c) renderProps();
+  if (c.type === 'fuse' && c.broken) toast('O fusível novo queimou de novo! Primeiro desfaça o curto-circuito ou a sobrecarga.', 'warn');
 }
 function toggleSwitch(c){
   c.closed = !c.closed; c.label?.userData.draw(labelText(c)); solve();
@@ -921,7 +1001,7 @@ let tool = 'select', pending = null, hoverNode = null, hoverComp = null;
 const toolsEl = $('#tools');
 TOOLS.forEach(([t, name], k) => {
   const b = document.createElement('button'); b.className = 'tool'; b.dataset.tool = t;
-  b.innerHTML = `${svgIcon(t)}<span>${name}</span><span class="k">${k + 1}</span>`;
+  b.innerHTML = `${svgIcon(t)}<span>${name}</span><span class="k">${keyOf(k)}</span>`;
   b.addEventListener('click', () => setTool(t)); toolsEl.appendChild(b);
 });
 const HINTS = {
@@ -931,6 +1011,7 @@ const HINTS = {
   battery: 'Clique no borne do polo negativo (−) e depois no do polo positivo (+).',
   ammeter: 'O amperímetro vai em SÉRIE. Clique no borne (−) e depois no (+).',
   voltmeter: 'O voltímetro vai em PARALELO ao componente. Clique no borne (−) e depois no (+).',
+  fuse: 'O fusível vai em SÉRIE, logo na saída da bateria. Clique em um borne e depois em outro.',
 };
 function setTool(t){
   tool = t; pending = null; pendRing.visible = ghost.visible = false;
@@ -995,7 +1076,7 @@ function refreshHover(e){
   const tip = $('#tip');
   if (hoverComp && e) {
     const r = readingsOf(hoverComp), c = hoverComp;
-    tip.innerHTML = `<b>${TYPES[c.type].name}${c.broken ? ' (queimada)' : ''}</b><div>Tensão<i>${fV(r.V)}</i></div><div>Corrente<i>${fI(r.I)}</i></div><div>Potência<i>${fP(r.P)}</i></div>${c.type === 'switch' && tool !== 'delete' ? `<div style="color:#fde68a;margin-top:4px">Clique para ${c.closed ? 'abrir' : 'fechar'} a chave</div>` : ''}${tool === 'select' ? `<div style="color:#7dd3fc;margin-top:4px">Clique para ver a função</div>` : ''}`;
+    tip.innerHTML = `<b>${TYPES[c.type].name}${c.broken ? (c.type === 'fuse' ? ' (queimado)' : ' (queimada)') : ''}</b><div>Tensão<i>${fV(r.V)}</i></div><div>Corrente<i>${fI(r.I)}</i></div><div>Potência<i>${fP(r.P)}</i></div>${c.type === 'switch' && tool !== 'delete' ? `<div style="color:#fde68a;margin-top:4px">Clique para ${c.closed ? 'abrir' : 'fechar'} a chave</div>` : ''}${tool === 'select' ? `<div style="color:#7dd3fc;margin-top:4px">Clique para ver a função</div>` : ''}`;
     tip.style.display = 'block';
     tip.style.left = Math.min(e.clientX + 16, innerWidth - 180) + 'px';
     tip.style.top = Math.min(e.clientY + 16, innerHeight - 100) + 'px';
@@ -1034,12 +1115,13 @@ function handleClick(){
 }
 
 addEventListener('keydown', e => {
+  if (window.AU_OPEN) return;
   if (CV.open) { if (e.key === 'Escape') closeCellView(); return; }
   if ($('#history').style.display === 'block') { if (e.key === 'Escape') closeHistory(); return; }
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
   if (e.key === 'Escape') { if ($('#modal').style.display === 'flex') closeModal(); else if (pending != null) cancelPending(); else setTool('select'); }
   if ((e.key === 'Delete' || e.key === 'Backspace') && selected) { removeComp(selected); solve(); }
-  const k = parseInt(e.key); if (k >= 1 && k <= TOOLS.length) setTool(TOOLS[k - 1][0]);
+  const k = e.key === '0' ? 10 : parseInt(e.key); if (k >= 1 && k <= TOOLS.length) setTool(TOOLS[k - 1][0]);
 });
 
 let toastT;
@@ -1082,15 +1164,53 @@ const PRESETS = {
     ['battery',[2,4],[2,2],{ value:9 }], ['wire',[2,2],[4,2]], ['lamp',[4,2],[6,2]], ['wire',[6,2],[6,4]],
     ['wire',[6,4],[4,4]], ['wire',[4,4],[2,4]], ['switch',[4,2],[4,4],{ closed:false }],
   ],
+  fusivel: [
+    ['battery',[2,4],[2,2],{ value:9 }], ['fuse',[2,2],[4,2],{ value:2 }], ['lamp',[4,2],[6,2]], ['wire',[6,2],[6,4]],
+    ['wire',[6,4],[4,4]], ['wire',[4,4],[2,4]], ['switch',[4,2],[4,4],{ closed:false }],
+  ],
+  /* Circuitos das aulas 15 e 16 (8º ano): bateria de 9 V e resistores de 10 Ω */
+  a15_1: [
+    ['battery',[1,4],[1,2],{ value:9 }], ['wire',[1,2],[1,1]], ['wire',[1,1],[3,1]], ['resistor',[3,1],[5,1],{ value:10 }],
+    ['wire',[5,1],[7,1]], ['wire',[7,1],[7,3]], ['wire',[7,3],[7,5]], ['wire',[7,5],[5,5]],
+    ['switch',[5,5],[3,5],{ closed:true }], ['wire',[3,5],[1,5]], ['wire',[1,5],[1,4]],
+  ],
+  a15_2: [
+    ['battery',[1,4],[1,2],{ value:9 }], ['wire',[1,2],[1,1]], ['wire',[1,1],[3,1]], ['resistor',[3,1],[5,1],{ value:10 }],
+    ['resistor',[5,1],[7,1],{ value:10 }], ['wire',[7,1],[7,3]], ['wire',[7,3],[7,5]], ['wire',[7,5],[5,5]],
+    ['switch',[5,5],[3,5],{ closed:true }], ['wire',[3,5],[1,5]], ['wire',[1,5],[1,4]],
+  ],
+  a15_5: [
+    ['battery',[1,4],[1,2],{ value:9 }], ['ammeter',[1,2],[1,1]], ['wire',[1,1],[3,1]], ['resistor',[3,1],[5,1],{ value:10 }],
+    ['wire',[5,1],[7,1]], ['wire',[7,1],[7,3]], ['wire',[7,3],[7,5]], ['wire',[7,5],[5,5]],
+    ['switch',[5,5],[3,5],{ closed:true }], ['wire',[3,5],[1,5]], ['wire',[1,5],[1,4]],
+    ['wire',[3,1],[3,0]], ['wire',[5,1],[5,0]], ['voltmeter',[5,0],[3,0]],
+  ],
+  a16_par: [
+    ['battery',[1,4],[1,2],{ value:9 }], ['ammeter',[1,2],[1,1]], ['wire',[1,1],[3,1]], ['wire',[3,1],[5,1]],
+    ['wire',[1,5],[3,5]], ['wire',[3,5],[5,5]], ['switch',[1,5],[1,4],{ closed:true }],
+    ...[3,5].flatMap(i => [['wire',[i,1],[i,2]], ['resistor',[i,2],[i,4],{ value:10 }], ['wire',[i,4],[i,5]]]),
+  ],
+  a16_misto: [
+    ['battery',[1,4],[1,2],{ value:9 }], ['ammeter',[1,2],[1,1]], ['wire',[1,1],[3,1]], ['resistor',[3,1],[5,1],{ value:10 }],
+    ['wire',[5,1],[5,2]], ['resistor',[5,2],[5,4],{ value:10 }], ['wire',[5,4],[5,5]],
+    ['wire',[5,1],[7,1]], ['wire',[7,1],[7,2]], ['resistor',[7,2],[7,4],{ value:10 }], ['wire',[7,4],[7,5]],
+    ['wire',[7,5],[5,5]], ['wire',[5,5],[3,5]], ['switch',[3,5],[1,5],{ closed:true }], ['wire',[1,5],[1,4]],
+  ],
 };
-function loadPreset(name){
+function loadPreset(name, o = {}){
   if (guide) { guide = null; renderGuide(); }
+  if (o.ideal != null) opt.ideal = o.ideal;
   clearAll(); edited = false;
-  PRESETS[name].forEach(([t, a, b, o]) => addComp(t, NID(...a), NID(...b), o || {}));
+  PRESETS[name].forEach(([t, a, b, p]) => addComp(t, NID(...a), NID(...b), p || {}));
   solve();
   if (name === 'curto') toast('Feche a chave do meio para ver o que acontece num curto-circuito.', 'warn');
+  if (name === 'fusivel') toast('Feche a chave do meio para provocar um curto-circuito e ver o fusível agir.', 'warn');
 }
-$('#preset').addEventListener('change', e => { if (e.target.value) loadPreset(e.target.value); e.target.value = ''; });
+$('#preset').addEventListener('change', e => {
+  const v = e.target.value;
+  if (v) { loadPreset(v, { ideal:/^a1[56]/.test(v) }); if (/^a1[56]/.test(v)) toast('Circuito da aula carregado com bateria e fios ideais (valores iguais aos do livro).'); }
+  e.target.value = '';
+});
 
 /* ================= Roteiros guiados (auto-instrução) ================= */
 const store = {
@@ -1128,6 +1248,17 @@ const setVal = (t, v, unit) => S.check(
   () => has(t, c => c.value === v), 'select',
   () => { const c = comps.find(x => x.type === t); if (!c) return; c.value = v; buildComp(c); solve(); select(c); },
   t === 'battery' ? 'A tensão da bateria (em volts) indica a “força” com que ela empurra a corrente.' : 'A resistência (em ohms, Ω) indica o quanto o componente dificulta a passagem da corrente.');
+/* Ajudantes que apontam para um componente específico (pelos bornes) */
+const compAt = (t, a, b) => { const A = NID(...a), B = NID(...b); return comps.find(c => c.type === t && ((c.a === A && c.b === B) || (c.a === B && c.b === A))); };
+const tname = t => TYPES[t].name.toLowerCase();
+const setValAt = (t, a, b, v, unit, why = '') => S.check(
+  `Com <b>Selecionar</b>, clique no ${tname(t)} entre <b>${nn(a)}</b> e <b>${nn(b)}</b> e ajuste o valor para <b>${dc(v)} ${unit}</b>: arraste o controle ou digite o número no painel da direita.`,
+  () => compAt(t, a, b)?.value === v, 'select',
+  () => { const c = compAt(t, a, b); if (!c) return; c.value = v; buildComp(c); solve(); select(c); }, why);
+const delAt = (t, a, b, html, why = '') => S.check(
+  html || `Com a ferramenta <b>Apagar</b>, remova o ${tname(t)} entre <b>${nn(a)}</b> e <b>${nn(b)}</b>.`,
+  () => !compAt(t, a, b), 'delete', () => { const c = compAt(t, a, b); if (c) { removeComp(c); solve(); } }, why);
+const selAt = (t, a, b, html, why = '') => S.check(html, () => !!selected && selected === compAt(t, a, b), 'select', () => select(compAt(t, a, b)), why);
 
 const GUIDES = [
   { id:'simples', title:'Meu primeiro circuito', level:'Iniciante',
@@ -1255,6 +1386,138 @@ const GUIDES = [
       openSw('Desfaça o curto-circuito: <b>abra a chave</b>.'),
       S.done('Você entendeu o que é um curto-circuito, por que ele é perigoso e como os dispositivos de proteção ajudam.'),
     ]},
+  { id:'fusivel', title:'Fusível: a proteção do circuito', level:'Segurança', aulaRef:14,
+    desc:'Monte um circuito com fusível, provoque um curto-circuito e veja o fusível queimar para proteger a instalação.',
+    steps:[
+      S.info('Fusíveis e disjuntores <b>interrompem a corrente</b> quando ela fica alta demais, por sobrecarga ou curto-circuito. Vamos ver um fusível agindo!'),
+      ...seq('fusivel', {
+        0:'A bateria de 9 V é a fonte.',
+        1:'O <b>fusível</b> fica logo na saída da bateria e <b>em série</b>: toda a corrente passa por ele. O limite dele é de 2 A.',
+        2:'A lâmpada usa cerca de 0,75 A, bem abaixo do limite do fusível.',
+        6:'Esta chave, quando fechada, liga os dois lados da lâmpada: é um <b>curto-circuito</b> feito de propósito. Ela começa aberta.' }),
+      S.q('Previsão: o que o fusível vai fazer quando você fechar a chave?',
+        ['Queimar, porque a corrente vai passar muito de 2 A.', 'Nada, ele só serve de enfeite.', 'Fazer a lâmpada brilhar mais.'],
+        'Com o curto-circuito a resistência fica quase zero e a corrente dispara. Vamos testar!'),
+      closeSw('<b>Feche a chave</b> (ferramenta Selecionar) para provocar o curto-circuito.'),
+      S.q('O que aconteceu?',
+        ['O fio fino do fusível derreteu e abriu o circuito: a corrente parou antes de aquecer os fios.', 'A lâmpada queimou.', 'A bateria passou a fornecer mais energia para a lâmpada.'],
+        'O fusível “se sacrifica” para proteger o resto do circuito. Sem ele, os fios esquentariam e poderiam causar um incêndio.'),
+      openSw('Antes de trocar o fusível, desfaça o defeito: <b>abra a chave</b> do curto-circuito.'),
+      S.check('Agora troque o fusível: clique nele com <b>Selecionar</b> e use o botão <b>“Trocar o fusível”</b> no painel.',
+        () => has('fuse', c => !c.broken), 'select', () => { const f = comps.find(c => c.type === 'fuse'); if (f) fixComp(f); }),
+      S.q('Por que nunca se deve trocar um fusível por um pedaço de fio?',
+        ['Porque o fio não derrete com o excesso de corrente, e a proteção deixa de existir.', 'Porque o fio tem resistência muito alta.', 'Pode trocar: não faz diferença.'],
+        'O fusível precisa ser o “ponto fraco” do circuito, de propósito. Nas casas, os <b>disjuntores</b> fazem o mesmo papel e podem ser religados.'),
+      S.done('Você viu como o fusível protege o circuito num curto-circuito e por que ele deve ser trocado por outro igual.'),
+    ]},
+  /* ===== Roteiros das aulas 15 e 16 (8º ano · 4º bimestre): mesmos valores do livro ===== */
+  { id:'a15_1', aula:15, ideal:true, title:'Aula 15 · Atividade 1: circuito simples', level:'Aula 15',
+    desc:'Bateria de 9 V, resistor de 10 Ω, interruptor e fios. Meça a corrente.',
+    steps:[
+      S.info('Vamos fazer a <b>Atividade 1</b> da aula 15: um circuito simples com <b>bateria de 9 V</b>, um <b>resistor de 10 Ω</b>, um <b>interruptor</b> (chave) e fios.<br><br>Neste roteiro a bateria e os fios são <b>ideais</b> (sem resistência), como nos cálculos do livro.'),
+      ...seq('a15_1', { 0:'A <b>bateria</b> fornece tensão elétrica ao circuito: 9 V.', 1:'O <b>fio condutor</b> conecta os componentes.', 3:'O <b>resistor</b> limita o fluxo de corrente elétrica.', 8:'O <b>interruptor</b> (chave) controla o fluxo de corrente. Ele começa aberto.' },
+        { 3:[setValAt('resistor', [3,1], [5,1], 10, 'Ω', 'Na atividade usamos um resistor de 10 Ω.')] }),
+      closeSw(),
+      selAt('resistor', [3,1], [5,1], 'Clique no <b>resistor</b> com a ferramenta Selecionar e observe as medidas no painel da direita.'),
+      S.q('b) Qual é o valor da resistência utilizada?', ['10 Ω', '9 Ω', '0,9 Ω'], 'O resistor foi ajustado para 10 Ω. Confira também a “Resistência equivalente” no painel Circuito.'),
+      S.q('c) Qual é a tensão fornecida pela bateria?', ['9 V', '10 V', '0,9 V'], 'A bateria fornece 9 V. Num circuito simples, toda essa tensão fica sobre o resistor.'),
+      S.q('d) Qual é o valor da corrente elétrica?', ['0,9 A (900 mA)', '90 A', '9 A'], 'Pela 1ª Lei de Ohm: I = V ÷ R = 9 ÷ 10 = <b>0,9 A</b>. Confira no painel: 900 mA.'),
+      S.info('a) <b>Desenhe o diagrama</b> do circuito no caderno. Para ver o símbolo de cada peça, clique nela: a ficha “Conheça o componente” mostra o <b>símbolo no esquema elétrico</b>.'),
+      S.done('Com 9 V e 10 Ω, a corrente é de <b>0,9 A</b>. Próximo: Atividade 2, com dois resistores em série.'),
+    ]},
+  { id:'a15_2', aula:15, ideal:true, prep:'a15_1', title:'Aula 15 · Atividade 2: segundo resistor em série', level:'Aula 15',
+    desc:'Acrescente um resistor de 10 Ω em série e compare a corrente.',
+    steps:[
+      S.info('O circuito da Atividade 1 já está montado (9 V e 10 Ω, corrente de 0,9 A). Agora você vai <b>adicionar um segundo resistor em série</b>.'),
+      delAt('wire', [5,1], [7,1], `Primeiro abra espaço: com a ferramenta <b>Apagar</b>, remova o fio entre <b>${nn([5,1])}</b> e <b>${nn([7,1])}</b>.`),
+      S.place('resistor', [5,1], [7,1], 'O segundo resistor fica no <b>mesmo caminho</b> do primeiro: é uma ligação em série.'),
+      setValAt('resistor', [5,1], [7,1], 10, 'Ω'),
+      S.q('a) Qual é o valor da resistência equivalente desse circuito?', ['20 Ω', '5 Ω', '10 Ω'], 'Em série as resistências se somam: Req = R1 + R2 = 10 + 10 = <b>20 Ω</b>. Veja “Resistência equivalente” no painel.'),
+      S.q('b) Qual é a corrente agora? Ela é a mesma da Atividade 1?', ['0,45 A: caiu pela metade.', '0,9 A: não mudou.', '1,8 A: dobrou.'], 'I = V ÷ Req = 9 ÷ 20 = <b>0,45 A</b>. Com o dobro da resistência, a corrente cai pela metade.'),
+      S.q('c) A tensão elétrica fornecida pela bateria mudou?', ['Não: continua 9 V, e ela se divide em 4,5 V em cada resistor.', 'Sim: caiu para 4,5 V.', 'Sim: dobrou para 18 V.'], 'A bateria continua fornecendo 9 V. Em série, a tensão se divide entre os resistores: 4,5 V + 4,5 V = 9 V.'),
+      S.done('Mais resistores em série → resistência equivalente maior → <b>corrente menor</b>.'),
+    ]},
+  { id:'a15_3', aula:15, ideal:true, prep:'a15_2', title:'Aula 15 · Atividade 3: alterando a resistência', level:'Aula 15',
+    desc:'Troque um dos resistores para 20 Ω e veja a corrente e a tensão mudarem.',
+    steps:[
+      S.info('Dois resistores de 10 Ω em série com 9 V (corrente de 0,45 A). Antes de mudar, faça uma <b>previsão</b>: se um resistor aumentar, a corrente aumenta ou diminui?'),
+      setValAt('resistor', [5,1], [7,1], 20, 'Ω', 'Mude só o segundo resistor.'),
+      S.q('Como a corrente variou?', ['Diminuiu para 0,3 A, porque a resistência equivalente subiu para 30 Ω.', 'Aumentou para 0,9 A.', 'Não mudou.'], 'Req = 10 + 20 = 30 Ω e I = 9 ÷ 30 = <b>0,3 A</b>. A tensão da bateria continua a mesma.'),
+      selAt('resistor', [5,1], [7,1], 'Clique no resistor de <b>20 Ω</b> e veja a tensão nele. Depois passe o mouse sobre o de 10 Ω.'),
+      S.q('E a tensão em cada resistor?', ['6 V no de 20 Ω e 3 V no de 10 Ω: o maior resistor fica com a maior parte.', '4,5 V em cada um.', '9 V em cada um.'], 'V = R × I: 20 × 0,3 = 6 V e 10 × 0,3 = 3 V. Somadas, dão os 9 V da bateria (Lei das Malhas).'),
+      S.done('Ao aumentar uma resistência em série, a corrente diminui e a tensão se redistribui: o resistor maior fica com mais tensão.'),
+    ]},
+  { id:'a15_4', aula:15, ideal:false, prep:'a15_2', title:'Aula 15 · Atividade 4: removendo peças', level:'Aula 15',
+    desc:'Retire os resistores e depois a bateria. O que acontece com a corrente?',
+    steps:[
+      S.info('Dois resistores em série com a bateria de 9 V. Deixe a opção <b>Corrente</b> ligada (no topo) para ver as bolinhas. Levante hipóteses antes de cada mudança!<br><br><span class="muted">Neste roteiro a bateria tem uma pequena resistência interna, como uma bateria real.</span>'),
+      delAt('resistor', [3,1], [5,1]),
+      delAt('resistor', [5,1], [7,1]),
+      S.q('Sem os resistores, o que aconteceu?', ['A corrente parou: ficou um “buraco” no caminho (circuito aberto).', 'A corrente aumentou muito.', 'Nada mudou.'], 'Tirar a peça deixa o caminho aberto. No simulador da aula (PhET), “remover o resistor” é trocá-lo por um fio. Vamos fazer isso!'),
+      S.place('wire', [3,1], [7,1], 'Um fio no lugar dos resistores: agora nada limita a corrente.'),
+      S.q('E agora, só com fios no caminho?', ['Curto-circuito: a corrente fica altíssima e pode danificar a bateria e os fios.', 'A corrente volta a ser 0,45 A.', 'A corrente para.'], 'Sem resistência, I = V ÷ R fica enorme. Na vida real a bateria e os fios esquentam e podem pegar fogo.'),
+      openSw('Interrompa o curto-circuito: <b>abra a chave</b>.'),
+      delAt('battery', [1,4], [1,2], 'Agora remova a <b>bateria</b> com a ferramenta Apagar.'),
+      S.check('Feche a chave de novo (ferramenta <b>Selecionar</b>).', () => has('switch', c => c.closed), 'select', toggleTo(true)),
+      S.q('Sem a bateria, o que acontece com a tensão e a corrente?', ['As duas ficam em zero: sem fonte, nada empurra os elétrons.', 'A corrente continua circulando por um tempo.', 'A tensão dobra.'], 'Sem bateria não há diferença de potencial (tensão) e os elétrons param de se mover em conjunto.'),
+      S.done('Sem resistores (só fios) → curto-circuito. Sem bateria → nenhuma tensão e nenhuma corrente.'),
+    ]},
+  { id:'a15_5', aula:15, ideal:true, prep:'a15_1', title:'Aula 15 · Atividade 5: amperímetro e voltímetro', level:'Aula 15',
+    desc:'Posicione o amperímetro em série e o voltímetro em paralelo e faça as medidas.',
+    steps:[
+      S.info('Circuito da Atividade 1 montado (9 V e 10 Ω). Você vai colocar os dois medidores: o <b>amperímetro</b> (corrente) e o <b>voltímetro</b> (tensão).'),
+      delAt('wire', [1,2], [1,1], `O amperímetro vai <b>em série</b>, dentro do caminho. Primeiro apague o fio entre <b>${nn([1,2])}</b> e <b>${nn([1,1])}</b>.`),
+      S.place('ammeter', [1,2], [1,1], 'Toda a corrente do circuito passa por dentro do amperímetro.'),
+      S.place('wire', [3,1], [3,0], 'Agora o voltímetro, que vai <b>em paralelo</b>, por fora do caminho. Um fio saindo de um lado do resistor…'),
+      S.place('wire', [5,1], [5,0], '…e outro fio saindo do outro lado.'),
+      S.place('voltmeter', [5,0], [3,0], 'O voltímetro liga os dois lados do resistor e mede a diferença de potencial entre eles.'),
+      S.q('Quanto marcam os medidores?', ['Amperímetro: 0,9 A · Voltímetro: 9 V', 'Amperímetro: 9 V · Voltímetro: 0,9 A', 'Os dois marcam zero.'], 'O amperímetro mede a corrente (0,9 A) e o voltímetro mede a tensão no resistor (9 V).'),
+      S.q('b) Se o amperímetro for ligado em outro ponto do caminho (depois do resistor, por exemplo), a leitura:', ['Continua 0,9 A: num caminho único, a corrente é a mesma em todos os pontos.', 'Fica menor, porque o resistor “gasta” corrente.', 'Fica zero.'], 'A corrente não é “gasta”: o que o resistor transforma é a <b>energia</b> (em calor).'),
+      S.q('a) Se os terminais do voltímetro forem ligados nos dois polos da bateria, ele marca:', ['9 V: a tensão total, igual à soma das tensões do circuito (Lei das Malhas).', '0 V', '18 V'], 'O valor do voltímetro depende dos pontos onde ele é ligado. Entre dois pontos do mesmo fio, ele marca 0 V.'),
+      S.done('Amperímetro <b>em série</b> (resistência quase zero) e voltímetro <b>em paralelo</b> (resistência altíssima).'),
+    ]},
+  { id:'a16_1', aula:16, ideal:true, prep:'a15_2', title:'Aula 16 · Atividade 1: resistores em série', level:'Aula 16',
+    desc:'Dois resistores de 10 Ω em série com 9 V: corrente e tensão em cada um.',
+    steps:[
+      S.info('Dois resistores de <b>10 Ω em série</b> com a bateria de <b>9 V</b> (já montados). Meça a corrente e a tensão em cada resistor.'),
+      selAt('resistor', [3,1], [5,1], 'Clique no <b>primeiro resistor</b> e anote a corrente e a tensão.'),
+      selAt('resistor', [5,1], [7,1], 'Agora clique no <b>segundo resistor</b>.'),
+      S.q('b) Quais são os valores da corrente elétrica?', ['0,45 A nos dois resistores.', '0,9 A em cada um.', '0,45 A no primeiro e zero no segundo.'], 'Req = 10 + 10 = 20 Ω e I = 9 ÷ 20 = <b>0,45 A</b>, a mesma em todo o caminho.'),
+      S.q('c) Quais são os valores de tensão em cada resistor?', ['4,5 V em cada um (somam 9 V).', '9 V em cada um.', '2,25 V em cada um.'], 'Pela Lei das Malhas, a tensão da bateria se divide entre os resistores: 4,5 V + 4,5 V = 9 V.'),
+      S.done('Em série: <b>corrente igual</b> em todos e <b>tensão dividida</b>.'),
+    ]},
+  { id:'a16_2', aula:16, ideal:true, prep:'a16_par', title:'Aula 16 · Atividades 2 e 3: resistores em paralelo', level:'Aula 16',
+    desc:'Dois resistores de 10 Ω em paralelo: resistência equivalente, corrente em cada ramo e comparação com a série.',
+    steps:[
+      S.info('Dois resistores de <b>10 Ω em paralelo</b>, bateria de <b>9 V</b> e um amperímetro medindo a corrente total (já montados).'),
+      selAt('resistor', [3,2], [3,4], 'Clique no resistor do <b>ramo 1</b>.'),
+      selAt('resistor', [5,2], [5,4], 'Agora clique no resistor do <b>ramo 2</b>.'),
+      S.q('Qual é a resistência equivalente?', ['5 Ω', '20 Ω', '10 Ω'], '1/Req = 1/10 + 1/10 = 2/10, então Req = <b>5 Ω</b>. Em paralelo, a Req é menor que o menor resistor.'),
+      S.q('b) Quais são os valores da corrente?', ['1,8 A no total e 0,9 A em cada ramo.', '0,45 A em cada ramo.', '0,9 A no total e 0,45 A em cada ramo.'], 'I = 9 ÷ 5 = <b>1,8 A</b> (amperímetro). A corrente se divide: 0,9 A em cada resistor igual.'),
+      S.q('c) Qual é a tensão em cada resistor?', ['9 V em cada um.', '4,5 V em cada um.', '18 V somados.'], 'Em paralelo, cada ramo está ligado direto aos polos da bateria: <b>mesma tensão</b> em todos.'),
+      S.q('Atividade 3: comparando com a série (2 × 10 Ω), o que muda?', ['Série: corrente única (0,45 A) e tensão dividida. Paralelo: tensão igual (9 V) e corrente dividida (0,9 A + 0,9 A).', 'Nada muda entre os dois.', 'Na série a corrente é maior.'], 'O circuito em paralelo tem resistência equivalente menor, por isso a corrente total é maior.'),
+      S.done('Em paralelo: <b>tensão igual</b> em todos os ramos e <b>corrente dividida</b>.'),
+    ]},
+  { id:'a16_4', aula:16, ideal:true, prep:'a16_par', title:'Aula 16 · Atividade 4: mudando um ramo do paralelo', level:'Aula 16',
+    desc:'Altere a resistência de um dos ramos e compare as correntes antes e depois.',
+    steps:[
+      S.info('Paralelo com dois resistores de 10 Ω: 0,9 A em cada ramo e 1,8 A no total. Previsão: se um resistor aumentar, o que acontece com o <b>outro ramo</b>?'),
+      setValAt('resistor', [5,2], [5,4], 20, 'Ω', 'Mude só o resistor do ramo 2.'),
+      S.q('Quais são as correntes depois da alteração?', ['Ramo 2 cai para 0,45 A, ramo 1 continua com 0,9 A e o total cai para 1,35 A.', 'Os dois ramos caem para 0,45 A.', 'Nada muda.'], 'Cada ramo é independente: I₂ = 9 ÷ 20 = 0,45 A e I₁ = 9 ÷ 10 = 0,9 A. Total: 0,9 + 0,45 = <b>1,35 A</b>.'),
+      S.q('E a tensão nos resistores?', ['Continua 9 V em cada um.', 'Passa a ser 6 V e 3 V.', 'Cai para zero.'], 'Em paralelo a tensão é a mesma da fonte em todos os ramos, qualquer que seja a resistência.'),
+      S.done('Mudar um ramo do paralelo só altera a corrente <b>daquele ramo</b> (e o total). Por isso os aparelhos da casa funcionam de forma independente.'),
+    ]},
+  { id:'a16_5', aula:16, ideal:true, prep:'a16_misto', title:'Aula 16 · Atividades 5 e 6: circuito misto', level:'Aula 16',
+    desc:'Um resistor em série com dois em paralelo. Analise a corrente e a tensão em cada parte.',
+    steps:[
+      S.info('Circuito <b>misto</b>: o resistor R1 (10 Ω) em série com dois resistores de 10 Ω em paralelo. Bateria de 9 V.'),
+      selAt('resistor', [3,1], [5,1], 'Clique no resistor <b>R1</b> (o de cima, em série).'),
+      S.q('Qual é a tensão em R1?', ['6 V', '3 V', '9 V'], 'Req = 10 + 5 = 15 Ω; I = 9 ÷ 15 = 0,6 A; V₁ = 10 × 0,6 = <b>6 V</b>.'),
+      selAt('resistor', [5,2], [5,4], 'Agora clique num dos resistores do <b>paralelo</b>.'),
+      S.q('Qual é a tensão e a corrente em cada resistor do paralelo?', ['3 V e 0,3 A em cada um.', '6 V e 0,6 A em cada um.', '4,5 V e 0,45 A em cada um.'], 'Sobram 9 − 6 = <b>3 V</b> para o paralelo, e a corrente de 0,6 A se divide: <b>0,3 A</b> em cada.'),
+      S.q('Atividade 6: qual é a vantagem de usar circuitos mistos nas instalações elétricas?', ['Combinam a tensão igual dos ramos em paralelo (aparelhos independentes) com o controle e a proteção em série (interruptores, disjuntores).', 'Dispensam o uso de fios.', 'Fazem a corrente ser igual em todos os aparelhos.'], 'Na casa, as tomadas e lâmpadas ficam em paralelo, mas cada circuito tem um disjuntor e interruptores em série.'),
+      S.done('Num circuito misto, a parte em série divide a tensão e a parte em paralelo divide a corrente.'),
+    ]},
 ];
 
 /* Marcadores 3D dos bornes do passo atual */
@@ -1295,6 +1558,7 @@ function placeText(p){
     case 'lamp':      return `Coloque uma <b>lâmpada</b> entre <b>${A}</b> e <b>${B}</b>.`;
     case 'resistor':  return `Coloque um <b>resistor</b> entre <b>${A}</b> e <b>${B}</b>.`;
     case 'switch':    return `Coloque uma <b>chave</b> entre <b>${A}</b> e <b>${B}</b>.`;
+    case 'fuse':      return `Coloque o <b>fusível</b> entre <b>${A}</b> e <b>${B}</b>.`;
   }
 }
 const stepDone = s => s.place ? matchPlace(s.place) === 'ok' : s.check ? !!s.check() : false;
@@ -1304,11 +1568,15 @@ function startGuide(id){
   const g = GUIDES.find(x => x.id === id);
   if (comps.length && edited && !confirm('O roteiro vai limpar a placa para começar do zero. Continuar?')) return;
   closeModal();
+  closeAulasUI();
   guide = null; clearAll(); edited = false;
+  opt.ideal = !!g.ideal;   // roteiros antigos usam a bateria real
+  if (g.prep) PRESETS[g.prep].forEach(([t, a, b, o]) => addComp(t, NID(...a), NID(...b), o || {}));
   g.steps.forEach(s => { s.answered = false; if (s.q) s.ord = shuffle([...s.q.opts.keys()]); });
   guide = { g, k:0, fb:null };
   setTool('select'); solve(); renderGuide();
 }
+function closeAulasUI(){ if (window.AU && window.AU_OPEN) window.AU.close(); }
 function guideCheck(){
   if (!guide) return;
   const st = guide.g.steps; let moved = false;
@@ -1332,7 +1600,7 @@ function renderGuide(moved){
   if (s.why) body += `<div class="g-why">${s.why}</div>`;
   if (s.tool && !s.done) {
     const ti = TOOLS.findIndex(t => t[0] === s.tool);
-    body += `<div class="g-tool">${svgIcon(s.tool)}<span>Ferramenta <b>${TOOLS[ti][1]}</b> · tecla ${ti + 1}</span>${tool === s.tool ? '<em>✓ em uso</em>' : '<button data-act="tool">Usar</button>'}</div>`;
+    body += `<div class="g-tool">${svgIcon(s.tool)}<span>Ferramenta <b>${TOOLS[ti][1]}</b> · tecla ${keyOf(ti)}</span>${tool === s.tool ? '<em>✓ em uso</em>' : '<button data-act="tool">Usar</button>'}</div>`;
   }
   if (s.q) {
     body += `<div class="g-opts">${s.ord.map(i => {
@@ -1342,7 +1610,7 @@ function renderGuide(moved){
     else if (guide.fb) body += `<div class="g-fb state-bad">✗ Ainda não. Observe o circuito (passe o mouse sobre os componentes) e tente de novo.</div>`;
   }
   let right = '';
-  if (s.done) right = `<button data-act="menu">Outros roteiros</button><button class="primary" data-act="end">Concluir</button>`;
+  if (s.done) right = (g.aula || g.aulaRef ? `<button data-act="aula">📚 Voltar à aula ${g.aula || g.aulaRef}</button>` : `<button data-act="menu">Outros roteiros</button>`) + `<button class="primary" data-act="end">Concluir</button>`;
   else if (s.place || s.check) right = `<button class="link" data-act="doit" title="Faz este passo automaticamente">Fazer por mim</button>`;
   else if (!s.q || s.answered) right = `<button class="primary" data-act="next">Próximo ▶</button>`;
   guideEl.innerHTML = `<div class="g-head"><span class="g-title">📘 ${g.title}</span><button class="g-x" data-act="close" title="Sair do roteiro">✕</button></div>
@@ -1363,6 +1631,7 @@ guideEl.addEventListener('click', e => {
     case 'tool': setTool(s.tool); break;
     case 'close': case 'end': guide = null; renderGuide(); break;
     case 'menu': openModal(); break;
+    case 'aula': { const n = guide.g.aula || guide.g.aulaRef; guide = null; renderGuide(); window.AU?.open(n); break; }
     case 'opt': {
       if (s.answered) return;
       const i = +b.dataset.i; guide.fb = { i };
@@ -1384,7 +1653,7 @@ guideEl.addEventListener('click', e => {
 /* Janela de boas-vindas / ajuda */
 function openModal(){
   const done = store.get('circ3d_done') || [];
-  $('#cards').innerHTML = GUIDES.map((g, k) => `<button class="card" data-g="${g.id}">
+  $('#cards').innerHTML = GUIDES.filter(g => !g.aula).map((g, k) => `<button class="card" data-g="${g.id}">
       <div class="n">Roteiro ${k + 1} · ${g.level}</div><div class="t">${g.title}</div><div class="d">${g.desc}</div>
       <div class="ok">${g.steps.length} passos${done.includes(g.id) ? ' · <b>✓ concluído</b>' : ''}</div></button>`).join('');
   $('#modal').style.display = 'flex';
@@ -2631,9 +2900,24 @@ function animate(){
     gRings.forEach(r => r.scale.set(s, 1, s));
     gNums.forEach((n, k) => n.position.y = 1.3 + 0.08 * Math.sin(t * 4 + k));
   }
+  if (window.AU_OPEN) return;   // a tela de Aulas cobre o laboratório 3D: não precisa desenhar
   if (CV.open) cvFrame(dt);
   else { controls.update(); composer.render(); }
 }
+
+/* ================= Ponte com o módulo "Aulas do 8º ano" (aulas/*.js) ================= */
+window.LAB = {
+  loadPreset(name, o){ closeAulasUI(); loadPreset(name, o); },
+  startGuide(id){ startGuide(id); },
+  guides: () => GUIDES.map(g => ({ id:g.id, title:g.title, desc:g.desc, aula:g.aula || g.aulaRef || null, steps:g.steps.length })),
+  done: () => store.get('circ3d_done') || [],
+  toast, openModal, openCellView: m => { closeAulasUI(); openCellView(null, m); },
+};
+$('#btnAulas').addEventListener('click', () => window.AU?.open());
+/* A barra do topo pode quebrar em duas linhas: os painéis laterais começam logo abaixo dela */
+const fitTop = () => { if (innerWidth > 820) document.documentElement.style.setProperty('--th', Math.round($('#top').getBoundingClientRect().bottom + 12) + 'px'); else document.documentElement.style.removeProperty('--th'); };
+addEventListener('resize', fitTop); new ResizeObserver(fitTop).observe($('#top')); fitTop();
+$('#mAulas').addEventListener('click', () => { closeModal(); window.AU?.open(); });
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
@@ -2648,5 +2932,12 @@ animate();
 setLevel(LEVEL);
 if (!store.get('circ3d_seen')) openModal();
 </script>
+<!-- Aulas do 8º ano (4º bimestre): scripts comuns, funcionam também abrindo o arquivo direto do computador -->
+<script src="aulas/core.js"></script>
+<script src="aulas/conteudo.js"></script>
+<script src="aulas/labs-energia.js"></script>
+<script src="aulas/labs-eletro.js"></script>
+<script src="aulas/labs-circuitos.js"></script>
+<script src="aulas/labs-consumo.js"></script>
 </body>
 </html>

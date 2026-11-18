@@ -29,6 +29,11 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
 .tool.on{color:var(--text);background:rgba(56,189,248,.14);border-color:rgba(56,189,248,.45)}
 .tool .k{font-size:9px;opacity:.55}
 #panel{position:fixed;right:12px;top:var(--th,78px);width:290px;max-height:calc(100% - var(--th,78px) - 72px);overflow:auto;padding:14px;z-index:5}
+#panelClose{position:sticky;top:0;float:right;margin:-6px -6px 0 8px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#0d1420;color:var(--text);font-size:15px;line-height:1;cursor:pointer;z-index:2}
+#panelClose:hover{background:#1c2638}
+#panelOpen{position:fixed;right:12px;top:var(--th,78px);z-index:5;display:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--text);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+body.painel-fechado #panel{display:none}
+body.painel-fechado #panelOpen{display:block}
 #panel h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
 #panel section+section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .stat{display:flex;justify-content:space-between;padding:3px 0}
@@ -199,6 +204,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
   .tool{flex:0 0 58px}
   .tool .k{display:none}
   #panel{top:auto;bottom:92px;left:8px;right:8px;width:auto;max-height:32vh}
+  #panelOpen{top:auto;bottom:92px;right:8px}
   #hint{display:none}
 }
 </style>
@@ -248,6 +254,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
 <nav id="tools" class="glass"></nav>
 
 <aside id="panel" class="glass">
+  <button id="panelClose" type="button" title="Fechar o painel e ampliar a visão do simulador" aria-label="Fechar painel">✕</button>
   <section>
     <h3>Circuito</h3>
     <div class="stat"><span>Estado</span><b id="sState">—</b></div>
@@ -260,6 +267,7 @@ button:hover,select:hover{border-color:rgba(56,189,248,.5)}
   <section id="props"></section>
 </aside>
 
+<button id="panelOpen" class="glass" type="button" title="Mostrar o painel com as medidas do circuito">📊 Medidas</button>
 <div id="hint" class="glass"></div>
 <div id="tip" class="glass"></div>
 <div id="toast" class="glass"></div>
@@ -2935,6 +2943,16 @@ if (!store.get('circ3d_seen')) openModal();
 <!-- Aulas do 8º ano (4º bimestre): scripts comuns, funcionam também abrindo o arquivo direto do computador -->
 <script src="aulas/core.js"></script>
 <script src="aulas/conteudo.js"></script>
+<script>
+/* painel "Circuito / Componente": pode ser fechado para ampliar a visão do simulador (a escolha fica guardada) */
+(function () {
+  const K = 'lab3d-painel-fechado', b = document.body;
+  try { if (localStorage.getItem(K) === '1') b.classList.add('painel-fechado'); } catch (e) {}
+  function setar(f) { b.classList.toggle('painel-fechado', f); try { localStorage.setItem(K, f ? '1' : '0'); } catch (e) {} }
+  document.getElementById('panelClose').onclick = () => setar(true);
+  document.getElementById('panelOpen').onclick = () => setar(false);
+})();
+</script>
 <script src="aulas/labs-energia.js"></script>
 <script src="aulas/labs-eletro.js"></script>
 <script src="aulas/labs-circuitos.js"></script>
